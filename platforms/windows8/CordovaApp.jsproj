@@ -70,7 +70,19 @@
         <Content Include="www\cordova_plugins.js" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="www\css\bootstrap.css" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\css\index.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\style.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\glyphicons-halflings-regular.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\OpenSans-CondLight-webfont.ttf" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\img\logo.png" />
@@ -79,6 +91,18 @@
         <Content Include="www\index.html" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="www\js\angular.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\bootstrap.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\controllers.js" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\js\index.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\jquery.min.js" />
     </ItemGroup>
 </Project>
