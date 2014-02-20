@@ -21,7 +21,6 @@ var cTip = function ($scope) {
             $scope.howTipsy[i].state = "";
         }
         $scope.howTipsy[index].state = "active";
-        $("#amtInput").focus();
     };
     $scope.splitIn = "1";
 
@@ -32,14 +31,12 @@ var cTip = function ($scope) {
         }
         $scope.calulateTip();
         $(this).hide();
-        $("#amtInput").focus();
     };
     $scope.decreaseSplit = function () {
         if ($scope.splitIn > 1) {
             $scope.splitIn--;
         }
         $scope.calulateTip();
-        $("#amtInput").focus();
     };
     $scope.calulateTip = function () {
         
@@ -65,6 +62,10 @@ var cTip = function ($scope) {
         }
     };
     $('#aboutMoal').on('hidden.bs.modal', function (e) {
-        $("#amtInput").focus();
     });
+
+    $scope.showSplitOPtions = function() {
+        alert("yay");
+        $('header').toggle();
+    }
 };

@@ -1,0 +1,1 @@
+angular.module('tipzyApp', ['ngTouch']);
