@@ -96,7 +96,7 @@ var cTip = function ($scope) {
         if(!$scope.splitPersons || $scope.splitPersons <= 0){
             $scope.splitPersons = [];
         }else if($scope.splitPersons.length > $scope.splitIn){
-            $scope.splitPersons.splice($scope.splitPersons.length);
+            $scope.splitPersons.splice(parseFloat($scope.splitPersons.length-1), 1);
         }
         
 
@@ -133,7 +133,7 @@ var cTip = function ($scope) {
 
         for(var i=0; i < $scope.splitPersons.length; i++){
             if(!$scope.splitPersons[i].edited)
-                $scope.splitPersons[i].amt = (parseFloat($scope.gtotal) - parseFloat(eTotal)) / uTotalCount;
+                $scope.splitPersons[i].amt = parseFloat((parseFloat($scope.gtotal) - parseFloat(eTotal)) / uTotalCount).toFixed(2);
         }
 
 

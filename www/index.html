@@ -27,7 +27,7 @@ glyphicon glyphicon-info-sign"></i>
             Split it between..
         </div>
         <div class="billing-block">
-            <input maxlength="10" id="amtInput" autofocus placeholder="Your bill is" class="form-control clearfix input-lg" type="number" ng-model="amt" ng-change="calulateTip()" />
+            <input maxlength="10" id="amtInput" autofocus placeholder="Your bill is" class="form-control clearfix input-lg" type="number" ng-model="amt" ng-change="calulateTip(); unevenSplit();" />
         </div>
         <div class="split-blk">
             <div class="input-group">
@@ -47,7 +47,7 @@ glyphicon glyphicon-info-sign"></i>
             </div>
             <div id="ngInputs" class="btn-group btn-group-justified">
                 <label ng-repeat="type in howTipsy" class="btn btn-info btn-lg {{type.state}}">
-                    <input type="radio" ng-click="setActive($index)" ng-change="calulateTip()" ng-model="$parent.tipVal" ng-value="{{type.value}}">{{type.name}}
+                    <input type="radio" ng-click="setActive($index)" ng-change="calulateTip(); unevenSplit();" ng-model="$parent.tipVal" ng-value="{{type.value}}">{{type.name}}
                     <br>
                     <div ng-show="total" class="tip-each">{{amt*type.value | currency}}</div>
                 </label>
@@ -73,7 +73,7 @@ glyphicon glyphicon-info-sign"></i>
                 <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="equals">
             </div-->
             <div ng-repeat="split in splitPersons" class="each-person">
-                <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt" ng-dirty="split.edited">
+                <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt">
             </div>
 
         </div>
