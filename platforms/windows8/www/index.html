@@ -27,16 +27,16 @@ glyphicon glyphicon-info-sign"></i>
             Split it between..
         </div>
         <div class="billing-block">
-            <input maxlength="10" id="amtInput" autofocus placeholder="Your bill is" class="form-control clearfix input-lg" type="number" ng-model="amt" ng-change="calulateTip()" />
+            <input maxlength="10" id="amtInput" autofocus placeholder="Your bill is" class="form-control clearfix input-lg" type="number" ng-model="amt" ng-change="calulateTip(); unevenSplit();" />
         </div>
         <div class="split-blk">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <button class="btn btn-lg btn-default" ng-click="decreaseSplit()" type="button">-</button>
+                    <button class="btn btn-lg btn-default" ng-click="decreaseSplit(); unevenSplit()" type="button">-</button>
                 </span>
                 <div class="split-input">{{splitIn}}</div>
                 <span class="input-group-btn">
-                    <button class="btn btn-lg btn-default" ng-click="increaseSplit()" type="button">+</button>
+                    <button class="btn btn-lg btn-default" ng-click="increaseSplit(); unevenSplit()" type="button">+</button>
                 </span>
             </div>
         </div>
@@ -47,14 +47,32 @@ glyphicon glyphicon-info-sign"></i>
             </div>
             <div id="ngInputs" class="btn-group btn-group-justified">
                 <label ng-repeat="type in howTipsy" class="btn btn-info btn-lg {{type.state}}">
-                    <input type="radio" ng-click="setActive($index)" ng-change="calulateTip()" ng-model="$parent.tipVal" ng-value="{{type.value}}">{{type.name}}
+                    <input type="radio" ng-click="setActive($index)" ng-change="calulateTip();unevenSplit()" ng-model="$parent.tipVal" ng-value="{{type.value}}">{{type.name}}
                     <br>
                     <div ng-show="total" class="tip-each">{{amt*type.value | currency}}</div>
                 </label>
             </div>
         </form>
 
-        <div class="row clearfix" ng-class="displayborder"><span ng-show="total">{{total | currency}}</span>{{showMessage}}</div>
+        <div class="row clearfix" ng-class="displayborder">
+            <!-- <div ng-show="total" class="btn-group pull-right round-up" data-toggle="buttons">
+                <label class="btn btn-info">
+                    <input ng-click="roundit" type="checkbox"> Round It Up
+                </label>
+            </div> -->
+            <span ng-show="total">{{gtotal | currency}}</span>{{showMessage}}
+            
+        </div>
+        
+
+
+        <div class="uneven-splitblk" ng-show="splitIn > 1">
+            THis shows up where there is un-even split
+
+            <div ng-repeat="person in persons track by $index" class="each-person">
+                <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="equals">
+            </div>
+        </div>
 
     </section>
 
@@ -100,7 +118,7 @@ glyphicon glyphicon-info-sign"></i>
 
     <script src="js/jquery.min.js"></script>
     
-    <script src="cordova.js"></script>
+    <!--script src="cordova.js"></script-->
     <script src="js/bootstrap.min.js"></script>
     <!--script src="js/app.js"></script-->
 

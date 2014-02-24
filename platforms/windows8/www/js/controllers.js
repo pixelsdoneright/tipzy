@@ -38,6 +38,21 @@ var cTip = function ($scope) {
         }
         $scope.calulateTip();
     };
+
+   $scope.checkDirty = function() {
+        if ($('.uneven-splitblk').find('input').hasClass('ng-dirty')) {
+            $scope.persons = null;
+            /*$scope.persons = [];*/
+            $scope.persons.length = $scope.splitIn;
+            $scope.equals = $scope.gtotal/$scope.splitIn;
+            
+
+        } else {
+           /* $scope.persons = [];
+            $scope.persons.length = $scope.splitIn;
+            $scope.equals = $scope.gtotal/$scope.splitIn*/
+        }
+    }
     $scope.calulateTip = function () {
         
         var style = ""
@@ -52,7 +67,9 @@ var cTip = function ($scope) {
                     $scope.showMessage = "";
                     style += "total-amt";
                     $scope.tip = $scope.amt * $scope.tipVal;
-                    $scope.total = (parseFloat($scope.tip) + parseFloat($scope.amt)) / parseFloat($scope.splitIn);
+                    $scope.total = (parseFloat($scope.tip) + parseFloat($scope.amt));
+                    $scope.gtotal = $scope.total;
+                    /*$scope.roundit = Math.ceil($scope.gtotal);*/
                 };            
             $scope.displayborder = style;
         }else{
@@ -64,13 +81,41 @@ var cTip = function ($scope) {
     $('#aboutMoal').on('hidden.bs.modal', function (e) {
     });
 
-    $scope.showSplitOPtions = function() {
-        alert("yay");
-        /*$('header').toggle();*/
-        $(".maincontent").toggle(900);
-    }
+    $scope.unevenSplit = function() {
+        $scope.persons = [];
+        $scope.persons.length = $scope.splitIn;
+        $scope.equals = $scope.gtotal/$scope.splitIn
+       
 
-    $scope.gotoSplit = function() {
-        $navigate.go('/split')
     }
+    $scope.calcSplit = function(getsome) {
+        var minitotal = 0;
+       
+        var getClass = getsome.$index;
+
+        var splitbet = parseFloat($('.divide-input').length) - parseFloat($('.uneven-splitblk').find('.ng-dirty').length);
+        var splitnot = parseFloat($('.uneven-splitblk').find('.ng-dirty').length);
+
+        var minustotal = 0;
+
+        var dirtyArray = new Array();
+        $('.uneven-splitblk').find('.ng-dirty').each(function() {
+           dirtyArray.push($(this).val());
+        });
+
+        console.log(dirtyArray);
+
+        var minustotal=0;
+        for (var i=dirtyArray.length; i--;) {
+            minustotal+=parseFloat(dirtyArray[i]);
+        }
+
+
+        minitotal = parseFloat($scope.gtotal) - parseFloat(minustotal);
+
+        $scope.newequals = (parseFloat(minitotal))/parseFloat(splitbet);
+        $scope.equals = $scope.newequals;
+        
+    }
+ 
 };
