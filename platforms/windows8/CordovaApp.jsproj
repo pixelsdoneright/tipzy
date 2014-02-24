@@ -74,16 +74,28 @@
         <Content Include="www\css\bootstrap.css" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="www\css\desktop.ini" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\css\mobile-nav.css" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\css\style.css" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="www\desktop.ini" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\fonts\desktop.ini" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\fonts\glyphicons-halflings-regular.ttf" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\fonts\OpenSans-CondLight-webfont.ttf" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\img\desktop.ini" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\img\logo.png" />
@@ -101,10 +113,16 @@
         <Content Include="www\js\controllers.js" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="www\js\desktop.ini" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\js\index.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\js\jquery.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\views\desktop.ini" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\views\home.html" />

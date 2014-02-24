@@ -81,40 +81,89 @@ var cTip = function ($scope) {
     $('#aboutMoal').on('hidden.bs.modal', function (e) {
     });
 
+    
+
     $scope.unevenSplit = function() {
-        $scope.persons = [];
-        $scope.persons.length = $scope.splitIn;
-        $scope.equals = $scope.gtotal/$scope.splitIn
-       
+        // $scope.persons = [];
+        // $scope.persons.length = $scope.splitIn;
+        // $scope.equals = $scope.gtotal/$scope.splitIn
+
+
+        
+
+        var eachSplit;
+
+        if(!$scope.splitPersons || $scope.splitPersons <= 0){
+            $scope.splitPersons = [];
+        }else if($scope.splitPersons.length > $scope.splitIn){
+            $scope.splitPersons.splice($scope.splitPersons.length);
+        }
+        
+
+        for(var i=$scope.splitPersons.length; i < $scope.splitIn; i++){
+                eachSplit = {};
+                eachSplit.amt = 0;
+                eachSplit.edited = false;
+
+                $scope.splitPersons.push(eachSplit);
+            }
+            $scope.calcSplit();
+
+        
+
 
     }
     $scope.calcSplit = function(getsome) {
-        var minitotal = 0;
-       
-        var getClass = getsome.$index;
 
-        var splitbet = parseFloat($('.divide-input').length) - parseFloat($('.uneven-splitblk').find('.ng-dirty').length);
-        var splitnot = parseFloat($('.uneven-splitblk').find('.ng-dirty').length);
+        if(getsome)
+            getsome.split.edited = true;
 
-        var minustotal = 0;
+        var eTotal = uTotal = eTotalCount = uTotalCount = 0;
 
-        var dirtyArray = new Array();
-        $('.uneven-splitblk').find('.ng-dirty').each(function() {
-           dirtyArray.push($(this).val());
-        });
+        for(var i=0; i < $scope.splitPersons.length; i++){
+            if($scope.splitPersons[i].edited){
+                eTotal += parseFloat($scope.splitPersons[i].amt);
+                eTotalCount++;                
+            }else{
+                uTotal += parseFloat($scope.splitPersons[i].amt);
+                uTotalCount++;
+            }
+                
+        }
 
-        console.log(dirtyArray);
-
-        var minustotal=0;
-        for (var i=dirtyArray.length; i--;) {
-            minustotal+=parseFloat(dirtyArray[i]);
+        for(var i=0; i < $scope.splitPersons.length; i++){
+            if(!$scope.splitPersons[i].edited)
+                $scope.splitPersons[i].amt = (parseFloat($scope.gtotal) - parseFloat(eTotal)) / uTotalCount;
         }
 
 
-        minitotal = parseFloat($scope.gtotal) - parseFloat(minustotal);
 
-        $scope.newequals = (parseFloat(minitotal))/parseFloat(splitbet);
-        $scope.equals = $scope.newequals;
+        // var minitotal = 0;
+       
+        // var getClass = getsome.$index;
+
+        // var splitbet = parseFloat($('.divide-input').length) - parseFloat($('.uneven-splitblk').find('.ng-dirty').length);
+        // var splitnot = parseFloat($('.uneven-splitblk').find('.ng-dirty').length);
+
+        // var minustotal = 0;
+
+        // var dirtyArray = new Array();
+        // $('.uneven-splitblk').find('.ng-dirty').each(function() {
+        //    dirtyArray.push($(this).val());
+        // });
+
+        // console.log(dirtyArray);
+
+        // var minustotal=0;
+        // for (var i=dirtyArray.length; i--;) {
+        //     minustotal+=parseFloat(dirtyArray[i]);
+        // }
+
+
+        // minitotal = parseFloat($scope.gtotal) - parseFloat(minustotal);
+
+        // $scope.newequals = (parseFloat(minitotal))/parseFloat(splitbet);
+        // $scope.equals = $scope.newequals;
         
     }
  
