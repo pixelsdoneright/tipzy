@@ -93,7 +93,9 @@ var cTip = function ($scope) {
 
         var eachSplit;
 
-        if(!$scope.splitPersons || $scope.splitPersons <= 0){
+        if(!$scope.splitPersons || $scope.splitPersons.length <= 0){
+            $scope.splitPersons = [];
+        }else if($scope.splitPersons.length == 1){
             $scope.splitPersons = [];
         }else if($scope.splitPersons.length > $scope.splitIn){
             $scope.splitPersons.splice(parseFloat($scope.splitPersons.length-1), 1);
@@ -107,12 +109,10 @@ var cTip = function ($scope) {
 
                 $scope.splitPersons.push(eachSplit);
             }
-            $scope.calcSplit();
-
         
-
-
+        $scope.calcSplit();
     }
+
     $scope.calcSplit = function(getsome) {
 
         if(getsome)
