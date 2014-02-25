@@ -15,8 +15,7 @@
     <header>
         <img class="logo" src="img/logo.png" width="35px" alt="tipzy">That Tip Thingy..
         <a data-toggle="modal" data-target="#aboutMoal" class="about" href="#">
-            <i class="
-glyphicon glyphicon-info-sign"></i>
+            <i class="glyphicon glyphicon-info-sign"></i>
         </a>
     </header>
     <section class="maincontent">
@@ -47,7 +46,7 @@ glyphicon glyphicon-info-sign"></i>
             </div>
             <div id="ngInputs" class="btn-group btn-group-justified">
                 <label ng-repeat="type in howTipsy" class="btn btn-info btn-lg {{type.state}}">
-                    <input type="radio" ng-click="setActive($index)" ng-change="calulateTip();unevenSplit()" ng-model="$parent.tipVal" ng-value="{{type.value}}">{{type.name}}
+                    <input type="radio" ng-click="setActive($index)" ng-change="calulateTip(); unevenSplit();" ng-model="$parent.tipVal" ng-value="{{type.value}}">{{type.name}}
                     <br>
                     <div ng-show="total" class="tip-each">{{amt*type.value | currency}}</div>
                 </label>
@@ -69,9 +68,13 @@ glyphicon glyphicon-info-sign"></i>
         <div class="uneven-splitblk" ng-show="splitIn > 1">
             THis shows up where there is un-even split
 
-            <div ng-repeat="person in persons track by $index" class="each-person">
+            <!--div ng-repeat="person in persons track by $index" class="each-person">
                 <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="equals">
+            </div-->
+            <div ng-repeat="split in splitPersons" class="each-person">
+                <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt">
             </div>
+
         </div>
 
     </section>
