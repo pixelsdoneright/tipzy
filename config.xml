@@ -9,4 +9,10 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <plugins>
+    <plugin name="Device" value="org.apache.cordova.Device"/>
+</plugins>
+    <feature name="Globalization">
+    	<param name="android-package" value="org.apache.cordova.Globalization" />
+	</feature>
 </widget>
