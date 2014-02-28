@@ -213,3 +213,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Cordova generated folders
+platforms/
+hooks/
+merges/
+plugins/
