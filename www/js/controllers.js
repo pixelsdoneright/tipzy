@@ -4,54 +4,50 @@ var fe = {};
 var tfile = {};
 var fmode = "r";
 
-// Wait for device API libraries to load
-    //
-    function onLoad() {
-        console.log('#$#$ INSIDE ONLOAD');
-        document.addEventListener("deviceready", onDeviceReady, false);
-    }
+var origOffsetY = $('.sticky').offset().top;
 
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        console.log('#$#$ INSIDE deviceready');
-        navigator.globalization.getCurrencyPattern(
-        'USD',
-        function(pattern) {
-            console.log('pattern: ' + pattern.pattern + '\n' +
-                'code: ' + pattern.code + '\n' +
-                'fraction: ' + pattern.fraction + '\n' +
-                'rounding: ' + pattern.rounding + '\n' +
-                'decimal: ' + pattern.decimal + '\n' +
-                'grouping: ' + pattern.grouping);
-        },
-        function(error) {
-            console.log('Error getting pattern: ' + error);
-        }
-    );
-    }
+function onLoad() {
+    console.log('#$#$ INSIDE ONLOAD');
+    document.addEventListener("deviceready", onDeviceReady, false);
+    document.addEventListener('scroll', onScroll);
+}
 
-/*console.log("Test");
-
-document.addEventListener("deviceready", onDeviceReady, false);
-
+// device APIs are available
+//
 function onDeviceReady() {
+    console.log('#$#$ INSIDE deviceready: ' + JSON.stringify(navigator));
+
     navigator.globalization.getCurrencyPattern(
         'USD',
         function(pattern) {
-            console.log('pattern: ' + pattern.pattern + '\n' +
-                'code: ' + pattern.code + '\n' +
-                'fraction: ' + pattern.fraction + '\n' +
-                'rounding: ' + pattern.rounding + '\n' +
-                'decimal: ' + pattern.decimal + '\n' +
-                'grouping: ' + pattern.grouping);
+            str = 'pattern: ' + pattern.pattern;
+
+            navigator.notification.alert(
+                str, // message
+                function() {
+
+                }, // callback
+                'Game Over', // title
+                'Done' // buttonName
+            );
         },
-        function() {
-            console.log('Error getting pattern\n');
+        function(error) {
+            navigator.notification.alert('Error getting pattern: ' + error);
         }
     );
-}*/
+}
 
+function onScroll(e) {
+
+    if(window.scrollY >= origOffsetY){
+        $('.sticky').addClass('fixed');
+        $('.sticky').append($('.split-blk'));
+    }else{
+        $('.sticky').removeClass('fixed');
+    }
+
+    
+}
 
 var cTip = function($scope) {
     $scope.tipsy = {};
@@ -203,7 +199,7 @@ var cTip = function($scope) {
         console.log("fs root ===================> " + f.root);
         loadConfig(f);
     };
-    
+
     var loadConfig = function(fsys) {
         if ($scope.config && $scope.config.length < 1) {
             Log.info("Loading config...");
