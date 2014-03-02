@@ -71,8 +71,12 @@
             <!--div ng-repeat="person in persons track by $index" class="each-person">
                 <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="equals">
             </div-->
-            <div ng-repeat="split in splitPersons" class="each-person">
-                <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt">
+            <div ng-repeat="split in splitPersons" class="row each-person">
+                <i class="glyphicon glyphicon-user"></i> 
+
+                <div class="col-xs-7">
+                    <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt" />
+                </div>
             </div>
 
         </div>
