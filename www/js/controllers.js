@@ -41,7 +41,7 @@ function onScroll(e) {
 
     if(window.scrollY >= origOffsetY){
         $('.sticky').addClass('fixed');
-        $('.sticky').append($('.split-blk'));
+        /*$('.sticky').append($('.split-blk'));*/
     }else{
         $('.sticky').removeClass('fixed');
     }

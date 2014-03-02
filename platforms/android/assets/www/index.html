@@ -11,10 +11,10 @@
     <title>Tipzy | An Awesome Tip Calculator</title>
 </head>
 
-<body ng-controller="cTip">
+<body ng-controller="cTip" onload="onLoad()">
     <header>
         <img class="logo" src="img/logo.png" width="35px" alt="tipzy">That Tip Thingy..
-        <a data-toggle="modal" data-target="#aboutMoal" class="about" href="#">
+        <a data-toggle="modal" data-target="#aboutModal" class="about" href="#">
             <i class="glyphicon glyphicon-info-sign"></i>
         </a>
     </header>
@@ -53,14 +53,16 @@
             </div>
         </form>
 
-        <div class="row clearfix" ng-class="displayborder">
-            <!-- <div ng-show="total" class="btn-group pull-right round-up" data-toggle="buttons">
-                <label class="btn btn-info">
-                    <input ng-click="roundit" type="checkbox"> Round It Up
-                </label>
-            </div> -->
-            <span ng-show="total">{{gtotal | currency}}</span>{{showMessage}}
-            
+        <div class="sticky">
+            <div class="row clearfix" ng-class="displayborder">
+                <!-- <div ng-show="total" class="btn-group pull-right round-up" data-toggle="buttons">
+                    <label class="btn btn-info">
+                        <input ng-click="roundit" type="checkbox"> Round It Up
+                    </label>
+                </div> -->
+                <span ng-show="total">{{gtotal | currency}}</span>{{showMessage}}
+                
+            </div>
         </div>
         
 
@@ -72,14 +74,14 @@
                 <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="equals">
             </div-->
             <div ng-repeat="split in splitPersons" class="each-person">
-                <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt">
+                <i class="glyphicon glyphicon-user"></i> <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt">
             </div>
 
         </div>
 
     </section>
 
-    <div id="aboutMoal" class="modal fade">
+    <div id="aboutModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -121,7 +123,7 @@
 
     <script src="js/jquery.min.js"></script>
     
-    <!--script src="cordova.js"></script-->
+    <script src="cordova.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!--script src="js/app.js"></script-->
 

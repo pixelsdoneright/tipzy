@@ -16,7 +16,8 @@ header {
 header i {
     font-size: 22px;
 }
-.about, .about:hover {
+.about,
+.about:hover {
     display: inline-block;
     float: right;
     padding: 5px 15px;
@@ -83,7 +84,8 @@ header .logo {
     border-bottom: 1px dashed #bbb;
     text-align: center;
 }
-.btn-default:focus, .btn-default:hover {
+.btn-default:focus,
+.btn-default:hover {
     outline: 0;
     background-color: #fff;
 }
@@ -133,15 +135,31 @@ header .logo {
     border-bottom: 1px dashed #bbb;
 }
 .modal {
-    overflow: hidden!important;
+    overflow: hidden !important;
 }
-
 .round-up {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 .uneven-splitblk {
-	margin:20px 0px;
+    margin: 20px 0px;
 }
 .divide-input {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
+}
+.fixed {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 100;
+    background: #fff;
+    margin-top: -10px;
+    padding: 0px 15px;
+    /* box-shadow: 0px 0px 9px #bbbbbb; */
+}
+.sticky {
+
+}
+.each-person input {
+   /*  margin-left: 80px; */
 }

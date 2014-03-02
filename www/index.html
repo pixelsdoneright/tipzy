@@ -53,14 +53,16 @@
             </div>
         </form>
 
-        <div class="row clearfix sticky" ng-class="displayborder">
-            <!-- <div ng-show="total" class="btn-group pull-right round-up" data-toggle="buttons">
-                <label class="btn btn-info">
-                    <input ng-click="roundit" type="checkbox"> Round It Up
-                </label>
-            </div> -->
-            <span ng-show="total">{{gtotal | currency}}</span>{{showMessage}}
-            
+        <div class="sticky">
+            <div class="row clearfix" ng-class="displayborder">
+                <!-- <div ng-show="total" class="btn-group pull-right round-up" data-toggle="buttons">
+                    <label class="btn btn-info">
+                        <input ng-click="roundit" type="checkbox"> Round It Up
+                    </label>
+                </div> -->
+                <span ng-show="total">{{gtotal | currency}}</span>{{showMessage}}
+                
+            </div>
         </div>
         
 
@@ -71,12 +73,8 @@
             <!--div ng-repeat="person in persons track by $index" class="each-person">
                 <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="equals">
             </div-->
-            <div ng-repeat="split in splitPersons" class="row each-person">
-                <i class="glyphicon glyphicon-user"></i> 
-
-                <div class="col-xs-7">
-                    <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt" />
-                </div>
+            <div ng-repeat="split in splitPersons" class="each-person">
+                <i class="glyphicon glyphicon-user"></i> <input type="text" ng-change="calcSplit(this)" class="divide-input form-control input-lg {{$index}}" ng-model="split.amt">
             </div>
 
         </div>
