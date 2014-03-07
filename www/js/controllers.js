@@ -1,21 +1,19 @@
-var TIPZY_CONFIG_FILE = "tipzycfg";
-var fs = {};
-var fe = {};
-var tfile = {};
-var fmode = "r";
+var config = [];
+var rating = [];
+var currency = [];
 
 var origOffsetY = $('.sticky').offset().top;
 
-function onLoad() {
+var onLoad = function() {
     console.log('#$#$ INSIDE ONLOAD');
     document.addEventListener("deviceready", onDeviceReady, false);
     document.addEventListener('scroll', onScroll);
-}
+};
 
-// device APIs are available
-//
-function onDeviceReady() {
-    console.log('#$#$ INSIDE deviceready: ' + JSON.stringify(navigator));
+var onDeviceReady = function() {
+    //tipzy.webdb.open();
+    //tipzy.webdb.createTable();
+    //tipzy.webdb.getConfig(gotConfig);
 
     navigator.globalization.getCurrencyPattern(
         'USD',
@@ -28,26 +26,22 @@ function onDeviceReady() {
 
                 }, // callback
                 'Game Over', // title
-                'Done' // buttonName
             );
         },
         function(error) {
             navigator.notification.alert('Error getting pattern: ' + error);
         }
     );
-}
+};
 
-function onScroll(e) {
-
+var onScroll = function(e) {
     if(window.scrollY >= origOffsetY){
         $('.sticky').addClass('fixed');
         /*$('.sticky').append($('.split-blk'));*/
     }else{
         $('.sticky').removeClass('fixed');
     }
-
-    
-}
+};
 
 var cTip = function($scope) {
     $scope.tipsy = {};
@@ -66,7 +60,9 @@ var cTip = function($scope) {
         name: "Awesome",
         value: "0.15"
     }];
+
     $scope.howTipsy[0].state = "active";
+
     $scope.setActive = function(index) {
         for (i = 0; i < $scope.howTipsy.length; i++) {
             $scope.howTipsy[i].state = "";
@@ -76,13 +72,13 @@ var cTip = function($scope) {
     $scope.splitIn = "1";
 
     $scope.increaseSplit = function() {
-
         if ($scope.splitIn < 25) {
             $scope.splitIn++;
         }
         $scope.calulateTip();
         $(this).hide();
     };
+
     $scope.decreaseSplit = function() {
         if ($scope.splitIn > 1) {
             $scope.splitIn--;
@@ -103,9 +99,9 @@ var cTip = function($scope) {
             $scope.persons.length = $scope.splitIn;
             $scope.equals = $scope.gtotal/$scope.splitIn*/
         }
-    }
-    $scope.calulateTip = function() {
+    };
 
+    $scope.calulateTip = function() {
         var style = ""
         if ($scope.amt > 0) {
             style = "bordered-dash ";
@@ -129,17 +125,13 @@ var cTip = function($scope) {
             $scope.displayborder = "";
         }
     };
+
     $('#aboutMoal').on('hidden.bs.modal', function(e) {});
-
-
 
     $scope.unevenSplit = function() {
         // $scope.persons = [];
         // $scope.persons.length = $scope.splitIn;
         // $scope.equals = $scope.gtotal/$scope.splitIn
-
-
-
         var eachSplit;
 
         if (!$scope.splitPersons || $scope.splitPersons.length <= 0) {
@@ -160,10 +152,9 @@ var cTip = function($scope) {
         }
 
         $scope.calcSplit();
-    }
+    };
 
     $scope.calcSplit = function(getsome) {
-
         if (getsome)
             getsome.split.edited = true;
 
@@ -184,87 +175,7 @@ var cTip = function($scope) {
             if (!$scope.splitPersons[i].edited)
                 $scope.splitPersons[i].amt = parseFloat((parseFloat($scope.gtotal) - parseFloat(eTotal)) / uTotalCount).toFixed(2);
         }
-
-    }
-
-    var initFs = function() {
-        console.log("Requesting FileSystem access.");
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, fail);
     };
-
-    var gotFileSystem = function(f) {
-        fs = f;
-        console.log("Got FileSystem access.");
-        console.log("fs name ===================> " + f.name);
-        console.log("fs root ===================> " + f.root);
-        loadConfig(f);
-    };
-
-    var loadConfig = function(fsys) {
-        if ($scope.config && $scope.config.length < 1) {
-            Log.info("Loading config...");
-            getFileForReading(fsys, TIPZY_CONFIG_FILE);
-        }
-    };
-    var getFileForReading = function(fs, filename) {
-        console.log("Looking for the file - " + filename + ".");
-        fs.root.getFile(filename, {
-            create: true
-        }, gotFileForReading, fail);
-    };
-
-    var gotFileForReading = function(fileEntry) {
-        console.log("Got the file - " + fileEntry.fullPath + ".");
-        fe = fileEntry;
-        fe.file(readFile, fail);
-    };
-
-    var readFile = function(file) {
-        tfile = file;
-        var reader = new FileReader();
-        reader.onloadend = fileReadComplete;
-        reader.readAsText(file);
-    };
-
-    var fileReadComplete = function(event) {
-        console.log(JSON.stringify(event.target));
-        if (event.target.result == "null" || event.target.result == "") {
-            console.log("Writing data to file as empty file found.");
-            writeFile({
-                currency: '$',
-                tip1: '0.0',
-                tip2: "10.0",
-                tip3: "12.0",
-                tip4: "15.0"
-            });
-        } else {
-            $scope.safeApply(function() {
-                console.log("Updating file");
-                $scope.config = angular.fromJson(event.target.result);
-                console.log("Updated file" + $scope.config);
-            });
-        }
-    };
-
-    var writeFile = function(d) {
-        data = d;
-        fe.createWriter(writeDataToFile, fail);
-    };
-
-    var writeDataToFile = function(writer) {
-        writer.onwrite = function(evt) {
-            console.log("File Write successful - " + writer.length + " kb.");
-            getFileForReading(fs, TIPZY_CONFIG_FILE);
-        };
-
-        writer.seek((fmode == "r") ? 0 : writer.length)
-        writer.write(data);
-    };
-
-    var fail = function(errorevent) {
-        console.log(Utils.echo(errorevent));
-    };
-
 
     $scope.safeApply = function(fn) {
         var phase = this.$root.$$phase;
