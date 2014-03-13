@@ -1,49 +1,43 @@
-var config = [];
-var rating = [];
-var currency = [];
+var app = angular.module('Tipzy', []).
+run(function($rootScope) {
 
-var origOffsetY = $('.sticky').offset().top;
+    angular.element(document).ready(function() {
+        console.log('## Initiating app...');
+        document.addEventListener("deviceready", onDeviceReady, false);
+        document.addEventListener('scroll', onScroll);
+        onDeviceReady();
+    });
 
-var onLoad = function() {
-    console.log('#$#$ INSIDE ONLOAD');
-    document.addEventListener("deviceready", onDeviceReady, false);
-    document.addEventListener('scroll', onScroll);
-};
+    var onDeviceReady = function() {
+        console.log('## Device Ready.');
+        
+        // if (window.localStorage('firstrun') == '') {
+        //     tipzyapp.webdb.prepare();
+        //     tipzyapp.webdb.loadDefaultConfig();
+        //     window.localStorage('firstrun', 'false');
+        // }
+    };
+}).
+factory('sAppConfig', function(){
+    return {
+        getConfig: function(success_callback){
+            tipzyapp.webdb.open();
+            var cfg = {};
 
-var onDeviceReady = function() {
-    //tipzy.webdb.open();
-    //tipzy.webdb.createTable();
-    //tipzy.webdb.getConfig(gotConfig);
-
-    navigator.globalization.getCurrencyPattern(
-        'USD',
-        function(pattern) {
-            str = 'pattern: ' + pattern.pattern;
-
-            navigator.notification.alert(
-                str, // message
-                function() {
-
-                }, // callback
-                'Game Over', // title
-            );
-        },
-        function(error) {
-            navigator.notification.alert('Error getting pattern: ' + error);
+            var db = tipzyapp.webdb.db;
+                db.transaction(function(tx) {
+                    tx.executeSql("SELECT * FROM config;", [], function(t, r){
+                        for(var i=0; i<r.rows.length; i++) {
+                            var row = r.rows.item(i);
+                            cfg[row.property] = row.value;
+                        }
+                       success_callback(cfg);
+                    }, tipzyapp.webdb.onError);
+                }); 
         }
-    );
-};
-
-var onScroll = function(e) {
-    if(window.scrollY >= origOffsetY){
-        $('.sticky').addClass('fixed');
-        /*$('.sticky').append($('.split-blk'));*/
-    }else{
-        $('.sticky').removeClass('fixed');
-    }
-};
-
-var cTip = function($scope) {
+    };
+}).
+controller('cTipCalculation', function($scope){
     $scope.tipsy = {};
 
     $scope.tipVal = '0.0';
@@ -89,7 +83,6 @@ var cTip = function($scope) {
     $scope.checkDirty = function() {
         if ($('.uneven-splitblk').find('input').hasClass('ng-dirty')) {
             $scope.persons = null;
-            /*$scope.persons = [];*/
             $scope.persons.length = $scope.splitIn;
             $scope.equals = $scope.gtotal / $scope.splitIn;
 
@@ -129,9 +122,6 @@ var cTip = function($scope) {
     $('#aboutMoal').on('hidden.bs.modal', function(e) {});
 
     $scope.unevenSplit = function() {
-        // $scope.persons = [];
-        // $scope.persons.length = $scope.splitIn;
-        // $scope.equals = $scope.gtotal/$scope.splitIn
         var eachSplit;
 
         if (!$scope.splitPersons || $scope.splitPersons.length <= 0) {
@@ -187,5 +177,35 @@ var cTip = function($scope) {
             this.$apply(fn);
         }
     };
+}).
+controller('cAbout', function($scope){
 
+}).
+controller('cSettings', function($scope, sAppConfig){
+    sAppConfig.getConfig(function(data) {
+        $scope.$apply(function() {
+            $scope.config = data;
+        });
+    });
+
+    $scope.updateConfig = function(){
+        var db = tipzyapp.webdb.db;
+        db.transaction(function(tx) {
+            for (var property in $scope.config) {
+                tx.executeSql("UPDATE config SET value=? WHERE property = ?", 
+                [$scope.config[property], property], 
+                tipzyapp.webdb.onSuccess,
+                tipzyapp.webdb.onError); 
+            }
+        });
+    };
+});
+
+var origOffsetY = $('.sticky').offset().top;
+var onScroll = function(e) {
+    if(window.scrollY >= origOffsetY){
+        $('.sticky').addClass('fixed');
+    }else{
+        $('.sticky').removeClass('fixed');
+    }
 };

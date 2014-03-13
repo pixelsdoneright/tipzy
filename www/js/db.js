@@ -4,7 +4,8 @@ tipzyapp.webdb.db = null;
 
 tipzyapp.webdb.open = function() {
     var dbSize = 5 * 1024 * 1024; // 5MB
-    tipzyapp.webdb.db = openDatabase("tipzydata", "1.0", "Tipzy Data Cache", dbSize);
+    if(!tipzyapp.webdb.db)
+        tipzyapp.webdb.db = openDatabase("tipzydata", "1.0", "Tipzy Data Cache", dbSize);
 }
 
 tipzyapp.webdb.prepare = function() {
@@ -52,49 +53,22 @@ tipzyapp.webdb.onSuccess = function(tx, r) {
     //tipzyapp.webdb.getAllTodoItems(loadTodoItems);
 };
 
-tipzyapp.webdb.getConfig = function() {
-    config = [];
-    var db = tipzyapp.webdb.db;
-        db.transaction(function(tx) {
-            tx.executeSql("SELECT * FROM config", [], function(tx, rs){
-                for (var i=0; i < rs.rows.length; i++) {
-                    var item = rs.rows.item(i);
+// var uc = function(){
+//     abc = currency;
+//     abc[0].value = 'Rs';
+//     abc[2].value = 'India';
+//     tipzyapp.webdb.updateConfig(abc);
+// }
 
-                    config.push(item);
+// var updateConfig = function(cfg) {
 
-                    if(item.property.search('rating') >= 0)
-                        rating.push(item);
-
-                    if(item.property.search('currency') >= 0)
-                        currency.push(item);
-                }
-            },
-            tipzyapp.webdb.onError);
-        });
-};
-
-tipzyapp.webdb.updateConfig = function(cfg) {
-
-    var db = tipzyapp.webdb.db;
-        db.transaction(function(tx) {
-            for (var i=0; i < cfg.length; i++) {
-                tx.executeSql("UPDATE config SET property=?, value=? WHERE id = ?", 
-                [cfg[i].property, cfg[i].value, cfg[i].id], 
-                tipzyapp.webdb.onSuccess,
-                tipzyapp.webdb.onError); 
-            }
-        });
-};
-
-var uc = function(){
-    abc = currency;
-    abc[0].value = 'Rs';
-    abc[2].value = 'India';
-    tipzyapp.webdb.updateConfig(abc);
-}
-
-function init() {
-    //tipzyapp.webdb.open();
-    //tipzyapp.webdb.prepare();
-    //tipzyapp.webdb.getAllTodoItems(loadTodoItems);
-};
+//     var db = $rootScope.webdb.db;
+//         db.transaction(function(tx) {
+//             for (var i=0; i < cfg.length; i++) {
+//                 tx.executeSql("UPDATE config SET property=?, value=? WHERE id = ?", 
+//                 [cfg[i].property, cfg[i].value, cfg[i].id], 
+//                 $rootScope.webdb.onSuccess,
+//                 $rootScope.webdb.onError); 
+//             }
+//         });
+// };
