@@ -205,7 +205,9 @@ var origOffsetY = $('.sticky').offset().top;
 var onScroll = function(e) {
     if(window.scrollY >= origOffsetY){
         $('.sticky').addClass('fixed');
+        $('.uneven-splitblk').css('padding-top','40px');
     }else{
         $('.sticky').removeClass('fixed');
+        $('.uneven-splitblk').css('padding-top','0px');
     }
 };

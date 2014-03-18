@@ -74,6 +74,12 @@
         <Content Include="www\css\bootstrap.css" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="www\css\demo.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\jquery.mmenu.css" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\css\mobile-nav.css" />
     </ItemGroup>
     <ItemGroup>
@@ -95,16 +101,28 @@
         <Content Include="www\js\angular.min.js" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="www\js\app.js" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\js\bootstrap.min.js" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\js\controllers.js" />
+        <Content Include="www\js\db.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\fs.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\js\index.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\js\jquery.min.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\jquery.mmenu.min.all.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\jquery.slinky.min.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\views\home.html" />
